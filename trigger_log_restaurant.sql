@@ -1,3 +1,4 @@
+-- Создаем таблицу operation_log, которая будет хранить информацию о всех операциях пользователей с базой данных
 CREATE TABLE IF NOT EXISTS operation_log (
     id BIGSERIAL PRIMARY KEY,
     username TEXT,
@@ -6,6 +7,7 @@ CREATE TABLE IF NOT EXISTS operation_log (
     table_name TEXT
 );
 
+-- Журнальные копии таблиц
 CREATE TABLE IF NOT EXISTS users_log (
     log_id BIGSERIAL PRIMARY KEY,
     id BIGINT,
@@ -15,7 +17,9 @@ CREATE TABLE IF NOT EXISTS users_log (
     operation_id BIGINT REFERENCES operation_log(id)
 );
 
--- Триггеры для таблицы users
+-- Функция-триггер для логирования операций вставки в таблицу users
+-- При вставке новой записи в users создается запись в operation_log с типом операции 'insert',
+-- затем данные новой записи сохраняются в users_log вместе с ссылкой на операцию
 CREATE OR REPLACE FUNCTION log_users_insert() RETURNS TRIGGER AS $$
 BEGIN
     INSERT INTO operation_log(username, operation, table_name)
