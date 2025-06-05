@@ -1,5 +1,3 @@
-
--- Создание таблицы для журнала операций
 CREATE TABLE IF NOT EXISTS operation_log (
     id BIGSERIAL PRIMARY KEY,
     username TEXT,
@@ -8,7 +6,6 @@ CREATE TABLE IF NOT EXISTS operation_log (
     table_name TEXT
 );
 
--- Пример журнальной копии таблицы users
 CREATE TABLE IF NOT EXISTS users_log (
     log_id BIGSERIAL PRIMARY KEY,
     id BIGINT,
