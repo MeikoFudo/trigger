@@ -30,7 +30,6 @@ BEGIN
     VALUES (NEW.id, NEW.name, NEW.email, NEW.phone, NEW.operation_id);
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION log_users_update() RETURNS TRIGGER AS $$
 BEGIN
@@ -42,7 +41,6 @@ BEGIN
     VALUES (NEW.id, NEW.name, NEW.email, NEW.phone, NEW.operation_id);
     RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION log_users_delete() RETURNS TRIGGER AS $$
 DECLARE op_id BIGINT;
@@ -55,7 +53,6 @@ BEGIN
     VALUES (OLD.id, OLD.name, OLD.email, OLD.phone, op_id);
     RETURN OLD;
 END;
-$$ LANGUAGE plpgsql;
 
 -- Привязка триггеров
 DROP TRIGGER IF EXISTS trg_users_insert ON users;
